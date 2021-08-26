@@ -3,41 +3,41 @@ import './App.css';
 
 function App() {
   const [dob, setDob] = useState();
-  const [dateSum, setDateSum] = useState();
+  const [dateSum, setDateSum] = useState(0);
   const [luckyNo, setLuckyNo] = useState();
   const [isLucky, setIsLucky] = useState();
+
   function handleSubmit(e) {
-    var sum = 0;
-    console.log('dob = ', dob);
-    console.log('luckyNo = ', luckyNo);
+
+    e.preventDefault();
     var i;
     for (i = 0; i < dob.length; i++) {
       if (dob[i] == '-') {
       }
       else {
-        sum = sum + parseInt(dob[i]);
-        setDateSum(sum);
+        setDateSum(dateSum + parseInt(dob[i]));
       }
     }
-    if (sum % luckyNo == 0) {
-      setIsLucky('Yes')
+    if (dateSum % luckyNo == 0) {
+      setIsLucky('Lucky');
     }
     else {
-      setIsLucky('No')
+      setIsLucky('Not Lucky');
     }
-    console.log('Lucky = ', isLucky);
   }
 
   return (
     <div>
       <h1> Is your birthday lucky? </h1>
-      <form onSubmit={handleSubmit}>
-        <label> Date of birth : </label>
-        <input required onChange={(e) => setDob(e.target.value)} type="date" /> <br />
-        <label>Lucky number</label>
-        <input required onChange={(e) => setLuckyNo(e.target.value)} type="number" placeholder="Enter a lucky number" />
-        <input type="submit" value="Check" />
-      </form>
+
+      <label> Date of birth : </label>
+      <input required onChange={(e) => setDob(e.target.value)} type="date" /> <br />
+      <label>Lucky number</label>
+      <input required onChange={(e) => setLuckyNo(e.target.value)} type="number" placeholder="Enter a lucky number" /><br />
+      <button onClick={handleSubmit}> Submit </button>
+      <div hidden={isLucky == undefined ? true : false}>
+        {isLucky}
+      </div>
     </div>
   );
 }
