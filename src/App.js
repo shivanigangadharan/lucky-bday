@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [dob, setDob] = useState();
+  const [dateSum, setDateSum] = useState();
+  const [luckyNo, setLuckyNo] = useState();
+  const [isLucky, setIsLucky] = useState();
+  function handleSubmit(e) {
+    var sum = 0;
+    console.log('dob = ', dob);
+    console.log('luckyNo = ', luckyNo);
+    var i;
+    for (i = 0; i < dob.length; i++) {
+      if (dob[i] == '-') {
+      }
+      else {
+        sum = sum + parseInt(dob[i]);
+        setDateSum(sum);
+      }
+    }
+    if (sum % luckyNo == 0) {
+      setIsLucky('Yes')
+    }
+    else {
+      setIsLucky('No')
+    }
+    console.log('Lucky = ', isLucky);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1> Is your birthday lucky? </h1>
+      <form onSubmit={handleSubmit}>
+        <label> Date of birth : </label>
+        <input required onChange={(e) => setDob(e.target.value)} type="date" /> <br />
+        <label>Lucky number</label>
+        <input required onChange={(e) => setLuckyNo(e.target.value)} type="number" placeholder="Enter a lucky number" />
+        <input type="submit" value="Check" />
+      </form>
     </div>
   );
 }
