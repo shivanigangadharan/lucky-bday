@@ -53,6 +53,14 @@ function App() {
 
     e.preventDefault();
     var i;
+    if (dob == undefined) {
+      alert("Please enter the Date of birth.");
+      return 0;
+    }
+    if (luckyNo == undefined || luckyNo < 0) {
+      alert("Please enter a valid lucky number greater than zero.");
+      return 0;
+    }
     for (i = 0; i < dob.length; i++) {
       if (dob[i] == '-') {
       }
